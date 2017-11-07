@@ -28,10 +28,9 @@ if i am violating any copyright, please let me know and i will take it down.
      dd if=/dev/zero of=freedos.img bs=1M count=10
      losetup -f freedos.img
      
-     wget -4 http://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.0/pkgs/commandx.zip
-     wget -4 http://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.0/pkgs/kernels.zip
-     wget -4 http://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.0/pkgs/substx.zip
-     wget -4 http://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.0/pkgs/unstablx.zip
+     wget http://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.0/pkgs/commandx.zip
+     wget http://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.0/pkgs/kernels.zip
+     wget http://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.0/pkgs/unstablx.zip
      for i in *.zip ; do unzip $i ; done
      
      cp bin/command.com bin/kernel.sys myroot/
