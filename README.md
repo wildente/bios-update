@@ -49,9 +49,11 @@ if i am violating any copyright, please let me know and i will take it down.
 
 
 # docker
-i have added a dockerfile to generate an image:
+i have added a dockerfile to generate an image. you might need to adjust the size of the freedos.img file,
+if your bios update file is >9MB.
 
-     # download your bios update file into
+
+     # download your bios update file into the input/ directory.
 
      docker build -t bios:latest .
      docker run --name=bios-out bios:latest
