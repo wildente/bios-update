@@ -26,7 +26,6 @@ if i am violating any copyright, please let me know and i will take it down.
      mkdir myroot
      
      dd if=/dev/zero of=freedos.img bs=1M count=10
-     losetup -f freedos.img
      
      wget http://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.0/pkgs/commandx.zip
      wget http://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.0/pkgs/kernels.zip
@@ -36,9 +35,7 @@ if i am violating any copyright, please let me know and i will take it down.
      cp bin/command.com bin/kernel.sys myroot/
      cp ~/Downloads/E7240A22.exe myroot/
      
-     makebootfat -o /dev/loop0 -E 255 -1 source/ukernel/boot/fat12.bin -2 source/ukernel/boot/fat16.bin -3 source/ukernel/boot/fat32lba.bin -m /usr/share/syslinux/mbr.bin myroot/
-     
-     losetup -d /dev/loop0
+     makebootfat -o freedos.img -E 255 -1 source/ukernel/boot/fat12.bin -2 source/ukernel/boot/fat16.bin -3 source/ukernel/boot/fat32lba.bin -m /usr/share/syslinux/mbr.bin myroot/
      
      cp freedos.img /boot
      cp /usr/share/syslinux/memdisk /boot
@@ -49,3 +46,19 @@ if i am violating any copyright, please let me know and i will take it down.
       initrd16 /freedos.img
      }
      EOF
+
+
+# docker
+i have added a dockerfile to generate an image:
+
+     # download your bios update file into
+
+     docker build -t bios:latest .
+     docker run --name=bios-out bios:latest
+     docker cp bios-out:/freedos.img output/
+
+     docker rm -f bios-out
+     docker rmi -f bios:latest
+
+     # (optional, but recommended) test if the image works:
+     qemu-system-x86_64 -enable-kvm -kernel /usr/share/syslinux/memdisk -initrd output/freedos.img
